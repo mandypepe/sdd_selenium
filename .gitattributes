@@ -1,0 +1,8 @@
+# Configuración automática de texto para todos los archivos
+* text=auto
+
+# Asegurar que scripts de Bash usen siempre LF
+*.sh text eol=lf
+
+# Asegurar que scripts de Windows usen siempre CRLF
+*.bat text eol=crlf
