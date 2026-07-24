@@ -1,3 +1,4 @@
+<!-- Implementation is mandatory: docs/dtls/TC_spec_031.md is associated with src/test/java/com/project/tests/MobileResponsiveValidationTest.java -->
 # Branch name suggestion: feature/mobile-ui-usability-validation
 
 ## Feature Specification

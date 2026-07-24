@@ -1,12 +1,14 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="MySeleniumSuite">
+<suite name="PeopleDirectorySuite">
     <listeners>
         <listener class-name="com.project.listeners.TestListener" />
     </listeners>
 
-    <test name="DefaultTests">
+    <test name="DirectoryLoadTests">
         <parameter name="baseUrl" value="https://www.uci.cu/index.php/directorio/personas"/>
         <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.project.tests.DirectoryTests"/>
+        </classes>
     </test>
 </suite>
-

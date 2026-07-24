@@ -1,3 +1,4 @@
+<!-- Implementation is mandatory: docs/dtls/TC_spec_004.md is associated with src/test/java/com/project/tests/UniversitiesSectionNavigationTest.java -->
 # Branch name suggestion: feature/TC-004_validate-universities-navigation
 
 ## Feature Specification

@@ -1,3 +1,4 @@
+<!-- Implementation is mandatory: docs/dtls/TC_spec_016.md is associated with src/test/java/com/project/tests/PaginationNavigateToPage2Test.java -->
 # Branch name suggestion: `feature/TC-016_directory-pagination-automation`
 
 ## Feature Specification: TC-016 Validate Directory Pagination
