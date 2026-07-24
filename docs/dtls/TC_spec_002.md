@@ -1,3 +1,4 @@
+<!-- Implementation is mandatory: docs/dtls/TC_spec_002.md is associated with src/test/java/com/project/tests/ApplicationNoBlankOrServerErrorTest.java -->
 # Branch name suggestion: feature/qa-tc002-web-availability
 
 ## Feature Specification

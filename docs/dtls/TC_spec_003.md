@@ -1,3 +1,4 @@
+<!-- Implementation is mandatory: docs/dtls/TC_spec_003.md is associated with src/test/java/com/project/tests/PeopleSectionStaffListTest.java -->
 # Branch name suggestion: feature/qa-003-directory-people-navigation
 
 ## Feature Specification: Directory People Navigation Verification

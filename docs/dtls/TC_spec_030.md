@@ -1,3 +1,4 @@
+<!-- Implementation is mandatory: docs/dtls/TC_spec_030.md is associated with src/test/java/com/project/tests/DesktopResponsiveValidationTest.java -->
 # Branch name suggestion: feature/TC030-desktop-responsive-validation
 
 ## Feature Specification

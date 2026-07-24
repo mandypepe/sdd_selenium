@@ -1,3 +1,4 @@
+<!-- Implementation is mandatory: docs/dtls/TC_spec_039.md is associated with src/test/java/com/project/tests/BrowserBackButtonStateTest.java -->
 # Branch name suggestion: feature/QA_TC039_browser-back-nav
 
 ## Feature Specification

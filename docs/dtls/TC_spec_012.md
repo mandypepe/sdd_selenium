@@ -1,3 +1,4 @@
+<!-- Implementation is mandatory: docs/dtls/TC_spec_012.md is associated with src/test/java/com/project/tests/NameAccentsRenderingTest.java -->
 # Branch name suggestion: `feature/tc012-validate-accent-rendering`
 
 ## Feature Specification
