@@ -1,3 +1,4 @@
+<!-- Implementation is mandatory: docs/dtls/TC_spec_015.md is associated with src/test/java/com/project/tests/PaginationComponentTest.java -->
 # Branch name suggestion: feature/qa-directory-pagination-validation
 
 ## Feature Specification: Directory Pagination Validation

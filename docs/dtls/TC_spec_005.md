@@ -1,3 +1,4 @@
+<!-- Implementation is mandatory: docs/dtls/TC_spec_005.md is associated with src/test/java/com/project/tests/PhonesSectionNavigationTest.java -->
 # Branch name suggestion: feature/tc-005-validate-telephones-navigation
 
 ## Feature Specification
@@ -26,7 +27,7 @@ As a QA system, I want to automatically navigate from the main directory page to
 2. **Given** the "Telephones" section has loaded successfully, **When** the system evaluates the layout, **Then** the visual structure must remain coherent and consistent with the established baseline directory layout.
 
 ## Usage Scenarios
-The automated flow will be executed as part of continuous integration pipelines, scheduled health checks, or triggered manually by administrators to verify system integrity post-deployments.
+The primary usage scenario involves automated agents or users directly accessing the directory endpoint to perform initial visual and state checks before proceeding with deeper searches or navigation.
 
 ### Edge Cases
 - What happens if the network latency is unusually high during the page transition?

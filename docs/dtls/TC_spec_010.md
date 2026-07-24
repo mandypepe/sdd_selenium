@@ -1,3 +1,4 @@
+<!-- Implementation is mandatory: docs/dtls/TC_spec_010.md is associated with src/test/java/com/project/tests/AlphabetFilterLetterWPolicyTest.java -->
 # Branch name suggestion: `feature/HU_010_directory-alphabetical-filter-validation`
 
 ## Feature Specification

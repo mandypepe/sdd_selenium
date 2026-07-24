@@ -1,8 +1,8 @@
-# Configuración automática de texto para todos los archivos
 * text=auto
-
-# Asegurar que scripts de Bash usen siempre LF
+*.java text eol=lf
+*.xml text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.properties text eol=lf
 *.sh text eol=lf
-
-# Asegurar que scripts de Windows usen siempre CRLF
 *.bat text eol=crlf

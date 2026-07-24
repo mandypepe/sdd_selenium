@@ -1,3 +1,4 @@
+<!-- Implementation is mandatory: docs/dtls/TC_spec_018.md is associated with src/test/java/com/project/tests/PaginationLastPageTest.java -->
 # Branch name suggestion: feature/tc-018-directory-last-page
 ## Feature Specification: TC-018 Directory Pagination - "Last" Page Navigation Validation
 
@@ -64,7 +65,7 @@ As a directory user, I want to click the "Last" pagination option so that I can 
 
 ## Out of Scope
 - Validating the actual data accuracy, formatting, or integrity of the individual directory records (names, emails, phone numbers).
-- Performance, load, or stress testing the directory under high concurrent user scenarios.
+- Performance or load testing of the directory under high concurrent user scenarios.
 - Modifying the aesthetic design, CSS styling, or visual layout of the directory interface.
 - Testing the search, filter, or sorting functionalities of the directory.
 
