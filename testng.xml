@@ -2,6 +2,7 @@
 <suite name="PeopleDirectorySuite" parallel="methods" thread-count="10">
     <listeners>
         <listener class-name="com.project.listeners.TestListener" />
+        <listener class-name="com.project.listeners.CategoryListener" />
     </listeners>
 
     <test name="DirectoryLoadTests">

@@ -19,6 +19,30 @@ sdd-selenium-framework/
 └── README.md                  # Instructions
 ```
 
+### How to Tag Tests:
+
+```java
+@Test(groups = {"smoke"})
+public void smokeTest() {
+    // Test implementation
+}
+
+@Test(groups = {"regression"})
+public void regressionTest() {
+    // Test implementation
+}
+```
+
+```java
+import com.project.annotations.TestCategory;
+
+@TestCategory({"smoke", "critical"})
+@Test
+public void miTest() {
+    // tu código
+}
+```
+
 ### How to Run (Local):
 
 1) Ensure you have Java 17 and Maven installed.
@@ -26,6 +50,12 @@ sdd-selenium-framework/
 
 ```bash
 mvn test
+```
+```bash
+mvn test -DtestCategory=smoke
+```
+```bash
+mvn test -DtestCategory=regression
 ```
 
 ### Notes:

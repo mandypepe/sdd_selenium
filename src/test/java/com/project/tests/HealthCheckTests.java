@@ -1,5 +1,6 @@
 package com.project.tests;
 
+import com.project.annotations.TestCategory;
 import com.project.pages.HealthCheckPage;
 import com.project.tests.base.BaseTest;
 import com.project.utils.ReportLogger;
@@ -26,6 +27,7 @@ public class HealthCheckTests extends BaseTest {
         waitUtils = new WaitUtils(driver, 10); // Default timeout of 10 seconds
     }
 
+    @TestCategory({"smoke", "critical"})
     @Test(description = "AC-1.1: Verify no blank screen or server errors on initial page load")
     public void verifyNoBlankScreenOrServerError() {
         ReportLogger.log("Verifying page title is not empty.");
@@ -43,6 +45,7 @@ public class HealthCheckTests extends BaseTest {
         Assert.assertFalse(healthCheckPage.isErrorIndicatorPresent(), "Error indicator element is present on the page.");
     }
 
+    @TestCategory({"smoke", "critical"})
     @Test(description = "AC-1.2: Verify primary directory content is visible")
     public void verifyDirectoryContentVisible() {
         ReportLogger.log("Verifying directory content container is visible.");
@@ -53,6 +56,7 @@ public class HealthCheckTests extends BaseTest {
         Assert.assertTrue(bodyText.contains("Personas"), "Page should contain 'Personas' heading text.");
     }
 
+    @TestCategory({"regression"})
     @Test(description = "AC-1.3: Verify explicit failure on unresponsive server or invalid URL")
     public void verifyExplicitFailureOnUnresponsiveServer() {
         ReportLogger.log("Navigating to an intentionally invalid URL variant to provoke a failure.");
@@ -74,6 +78,7 @@ public class HealthCheckTests extends BaseTest {
         }
     }
 
+    @TestCategory({"regression"})
     @Test(description = "AC-2.1: Verify screenshot is captured on intentional assertion failure")
     public void verifyScreenshotCapturedOnFailure() {
         ReportLogger.log("Intentionally failing this test to verify screenshot capture.");
