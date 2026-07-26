@@ -1,5 +1,6 @@
 package com.project.tests;
 
+import com.project.annotations.TestCategory;
 import com.project.data.DirectoryTestData;
 import com.project.pages.DirectoryPage;
 import com.project.tests.base.BaseTest;
@@ -23,6 +24,7 @@ public class DirectoryTests extends BaseTest {
         directoryPage = new DirectoryPage();
     }
 
+    @TestCategory({"smoke", "critical"})
     @Test(description = "AC-1.1 & FR-001: Navigate to directory page without HTTP or visual errors")
     public void test_navigateToDirectoryWithoutErrors() {
         ReportLogger.log("Verifying navigation to People Directory without errors");
@@ -31,6 +33,7 @@ public class DirectoryTests extends BaseTest {
                 "URL should contain 'directorio/personas'. Actual: " + currentUrl);
     }
 
+    @TestCategory({"smoke", "critical"})
     @Test(description = "AC-1.2 & FR-002: Main page title and section header are visible and correct")
     public void test_mainTitleAndHeaderVisible() {
         ReportLogger.log("Verifying page title and section header text");
@@ -43,6 +46,7 @@ public class DirectoryTests extends BaseTest {
                 "Active section header mismatch!");
     }
 
+    @TestCategory({"smoke", "critical"})
     @Test(description = "AC-1.3 & FR-003: Initial personnel list is populated with at least 1 record")
     public void test_initialPersonListPopulated() {
         ReportLogger.log("Verifying personnel list is visible and populated");
@@ -55,6 +59,7 @@ public class DirectoryTests extends BaseTest {
                 "Personnel list should contain at least 1 record");
     }
 
+    @TestCategory({"regression", "encoding"})
     @Test(description = "FR-005: Special accented characters in personnel names render correctly")
     public void test_specialCharactersEncodedCorrectly() {
         ReportLogger.log("Verifying character encoding for accented names");
@@ -69,6 +74,7 @@ public class DirectoryTests extends BaseTest {
                 "Directory should display names with proper accented character encoding");
     }
 
+    @TestCategory({"smoke", "critical"})
     @Test(description = "FR-004: Global navigation and header layout remain intact")
     public void test_navigationAndLayoutNotBroken() {
         ReportLogger.log("Verifying global portal header layout is visible");

@@ -1,7 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="PeopleDirectorySuite">
+<suite name="PeopleDirectorySuite" parallel="methods" thread-count="10">
     <listeners>
         <listener class-name="com.project.listeners.TestListener" />
+        <listener class-name="com.project.listeners.CategoryListener" />
     </listeners>
 
     <test name="DirectoryLoadTests">
@@ -11,4 +12,13 @@
             <class name="com.project.tests.DirectoryTests"/>
         </classes>
     </test>
+
+    <test name="HealthCheckTests">
+        <parameter name="baseUrl" value="https://www.uci.cu/index.php/directorio/personas"/>
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.project.tests.HealthCheckTests"/>
+        </classes>
+    </test>
 </suite>
+
