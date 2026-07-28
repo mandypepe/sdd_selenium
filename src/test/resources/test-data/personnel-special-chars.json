@@ -1,0 +1,20 @@
+{
+  "records": [
+    { "id": "S001", "fullName": "Dr. Iñigo Montoya", "roleTitle": "Jefe de Esgrima y Tácticas", "department": "Instituto de Estrategia" },
+    { "id": "S002", "fullName": "Lic. Verónica Rodríguez-Peña", "roleTitle": "Coordinadora de Comunicación Institucional", "department": "Relaciones Públicas" },
+    { "id": "S003", "fullName": "M.Sc. Sebastián Ávalos", "roleTitle": "Ingeniero de Sistemas Embebidos", "department": "Facultad de Ingeniería" },
+    { "id": "S004", "fullName": "Dra. María Antonieta de las Nieves", "roleTitle": "Directora de Investigaciones Sociológicas", "department": "Ciencias Sociales" },
+    { "id": "S005", "fullName": "Ing. Tomás Édison Pérez", "roleTitle": "Especialista en Energía Renovable", "department": "Centro de Investigaciones" },
+    { "id": "S006", "fullName": "Lic. Inés Íñiguez", "roleTitle": "Analista de Datos Cuantitativos", "department": "Estadística" },
+    { "id": "S007", "fullName": "Dr. Fernando Fernández-Gómez", "roleTitle": "Catedrático Extraordinario de Letras Clásicas", "department": "Facultad de Humanidades" },
+    { "id": "S008", "fullName": "M.Sc. Úrsula Urrutia", "roleTitle": "Investigadora Asociada Nivel III", "department": "Instituto de Biotecnología" },
+    { "id": "S009", "fullName": "Ing. Óscar Óliver", "roleTitle": "Jefe de Operaciones e Infraestructura", "department": "Tecnología y Soporte" },
+    { "id": "S010", "fullName": "Dra. Sofía Niño de Rivera-Castañeda", "roleTitle": "Coordinadora General de Postgrado y Extensión", "department": "Vicerrectoría Académica" }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "pageSize": 20,
+    "totalRecords": 10,
+    "totalPages": 1
+  }
+}

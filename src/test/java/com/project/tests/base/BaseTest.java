@@ -12,11 +12,13 @@ import org.testng.annotations.Optional;
 public class BaseTest {
 
     protected WebDriver driver;
+    protected String baseUrl;
 
     @BeforeMethod(alwaysRun = true)
     @Parameters({"baseUrl", "browser"})
     public void setUp(@Optional("https://www.uci.cu/index.php/directorio/personas") String baseUrl,
                       @Optional("chrome") String browser) {
+        this.baseUrl = baseUrl;
         driver = DriverFactory.createDriver(browser);
         DriverManager.setDriver(driver);
         ReportLogger.log("Browser started: " + browser);
@@ -26,8 +28,12 @@ public class BaseTest {
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
-        ReportLogger.log("Closing browser");
-        DriverManager.quitDriver();
+        try {
+            ReportLogger.log("Closing browser");
+            DriverManager.quitDriver();
+        } catch (Exception e) {
+            System.err.println("Error in teardown: " + e.getMessage());
+        }
     }
 }
 
