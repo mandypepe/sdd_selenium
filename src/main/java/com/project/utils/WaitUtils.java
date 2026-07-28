@@ -66,4 +66,20 @@ public class WaitUtils {
     public WebElement untilClickable(By locator) {
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
+
+    public void untilRecordsLoaded(By recordsLocator) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(recordsLocator));
+    }
+
+    public void untilLoadingIndicatorGone(By spinnerLocator) {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(spinnerLocator));
+    }
+
+    public WebElement untilElementClickable(By locator) {
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    public void untilTextPresent(By locator, String text) {
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(locator, text));
+    }
 }

@@ -32,5 +32,11 @@ public class ReportLogger {
             System.out.println("Failed to attach screenshot: " + e.getMessage());
         }
     }
+
+    @io.qameta.allure.Step("{stepDescription}")
+    public static void logStep(String stepDescription) {
+        Allure.step(stepDescription);
+        System.out.println("Step: " + stepDescription);
+    }
 }
 

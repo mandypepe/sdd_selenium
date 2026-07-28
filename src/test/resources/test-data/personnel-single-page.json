@@ -1,0 +1,18 @@
+{
+  "records": [
+    { "id": "001", "fullName": "Dr. María García López", "roleTitle": "Director of Research", "department": "Institute of Advanced Studies" },
+    { "id": "002", "fullName": "José Martínez", "roleTitle": "Senior Software Engineer", "department": "Technology Department" },
+    { "id": "003", "fullName": "Dr. Elena Rodríguez Pérez", "roleTitle": "Associate Professor", "department": "Faculty of Engineering" },
+    { "id": "004", "fullName": "Antonio Fernández", "roleTitle": "Systems Administrator", "department": "IT Operations" },
+    { "id": "005", "fullName": "Dr. Carmen Díaz Santos", "roleTitle": "Dean of Academic Affairs", "department": "Academic Leadership" },
+    { "id": "006", "fullName": "Miguel Gonzalez", "roleTitle": "Junior Developer", "department": "Technology Department" },
+    { "id": "007", "fullName": "Dr. Lucia Morales", "roleTitle": "Professor of Mathematics", "department": "Faculty of Sciences" },
+    { "id": "008", "fullName": "Rafael Nuñez", "roleTitle": "Administrative Coordinator", "department": "Administration" }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "pageSize": 20,
+    "totalRecords": 8,
+    "totalPages": 1
+  }
+}

@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import com.project.utils.ReportLogger;
 
 import java.time.Duration;
 import java.util.List;
@@ -63,5 +64,38 @@ public abstract class BasePage {
 
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
+    }
+
+    protected void navigateTo(String url) {
+        driver.get(url);
+    }
+
+    protected void takeScreenshot(String name) {
+        ReportLogger.attachScreenshot(driver, name);
+    }
+
+    protected void logStep(String message) {
+        ReportLogger.log(message);
+    }
+
+    protected WebElement waitForElementClickable(By locator) {
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    protected boolean isElementPresent(By locator) {
+        try {
+            driver.findElement(locator);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    protected void waitForUrlContains(String urlFragment) {
+        wait.until(ExpectedConditions.urlContains(urlFragment));
+    }
+
+    protected List<WebElement> findElements(By locator) {
+        return driver.findElements(locator);
     }
 }
