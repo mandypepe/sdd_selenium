@@ -2,6 +2,7 @@ package com.project.pages;
 
 import com.project.pages.components.PaginationComponent;
 import com.project.pages.components.PersonnelRecord;
+import com.project.pages.components.AlphabetFilterComponent;
 import com.project.utils.ReportLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -22,10 +23,12 @@ public class PeopleSectionPage extends BasePage {
     private static final By PAGE_TITLE = By.cssSelector(".titulo-page h2");
 
     private final PaginationComponent paginationComponent;
+    private final AlphabetFilterComponent alphabetFilterComponent;
 
     public PeopleSectionPage() {
         super();
         this.paginationComponent = new PaginationComponent(driver);
+        this.alphabetFilterComponent = new AlphabetFilterComponent(driver);
     }
 
     /**
@@ -99,6 +102,17 @@ public class PeopleSectionPage extends BasePage {
     public void goToPreviousPage() {
         ReportLogger.log("Going to previous page");
         paginationComponent.goToPreviousPage();
+        waitForRecordsToLoad();
+    }
+
+    /**
+     * Applies the 'Any' alphabetical filter by delegating to AlphabetFilterComponent,
+     * resets pagination to page 1, and waits for records to load.
+     */
+    public void applyAnyFilter() {
+        ReportLogger.log("Applying 'Any' alphabet filter via component");
+        alphabetFilterComponent.selectAny();
+        paginationComponent.goToPage(1);
         waitForRecordsToLoad();
     }
 
