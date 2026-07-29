@@ -78,7 +78,7 @@ graph TD
         A[TC-001: Initial Page Load]
         B[TC-002: Web Availability Check]
         C[TC-003: People Navigation]
-        D[TC-006: "Any" Filter]
+        D[TC-006: Any Filter]
     end
 
     subgraph Test Classes
@@ -145,7 +145,7 @@ This flowchart details the execution flow for the people directory initial load 
 graph TD
     A[Start Test: Initial Page Load] --> B(Navigate to Directory URL);
     B --> C{Page Loaded Successfully?};
-    C -- Yes --> D(Verify Main Title and "Personas" Header);
+    C -- Yes --> D(Verify Main Title and Personas Header);
     D --> E{Title and Header Visible?};
     E -- Yes --> F(Verify Default List of People is Visible);
     F --> G{People List Displayed?};
@@ -168,7 +168,7 @@ This flowchart details the execution flow for validating the "People" section na
 ```mermaid
 graph TD
     A[Start Test: People Navigation] --> B(Navigate to Directory Page);
-    B --> C(Verify "People" Option is Visible and Accessible);
+    B --> C(Verify People Option is Visible and Accessible);
     C --> D{Is "People" Option Visible?};
     D -- Yes --> E(Click "People" Option);
     E --> F{People Section Loads?};
@@ -194,7 +194,7 @@ This flowchart details the execution flow for validating the "Any" alphabetical 
 
 ```mermaid
 graph TD
-    A[Start Test: "Any" Filter] --> B(Navigate to Directory Page);
+    A[Start Test: Any Filter] --> B(Navigate to Directory Page);
     B --> C(Select "Any" Filter Option);
     C --> D{General List Displayed?};
     D -- Yes --> E(Verify Results Are Not Blank/Empty);
