@@ -161,7 +161,7 @@ graph TD
 
 ---
 
-## TC-003: Validate Directory "People" Navigation and Data Rendering Flow
+## TC-003: Validate Directory People Navigation and Data Rendering Flow
 
 This flowchart details the execution flow for validating the "People" section navigation, demonstrating visibility, clicking, and content display.
 
@@ -169,7 +169,7 @@ This flowchart details the execution flow for validating the "People" section na
 graph TD
     A[Start Test: People Navigation] --> B(Navigate to Directory Page);
     B --> C(Verify People Option is Visible and Accessible);
-    C --> D{Is "People" Option Visible?};
+    C --> D{Is People Option Visible?};
     D -- Yes --> E(Click "People" Option);
     E --> F{People Section Loads?};
     F -- Yes --> G(Verify List of Personnel Records is Displayed);
@@ -177,7 +177,7 @@ graph TD
     H -- Yes --> I(Verify Each Record Displays Full Name);
     I --> J(Verify Role/Title Displayed for Individuals);
     J --> K(Test Passed);
-    D -- No --> L(Test Failed: "People" Option Missing);
+    D -- No --> L(Test Failed: People Option Missing);
     F -- No --> M(Test Failed: Section Not Loaded);
     H -- No --> N(Test Failed: Personnel List Not Visible);
     K --> O(End Test);
@@ -195,7 +195,7 @@ This flowchart details the execution flow for validating the "Any" alphabetical 
 ```mermaid
 graph TD
     A[Start Test: Any Filter] --> B(Navigate to Directory Page);
-    B --> C(Select "Any" Filter Option);
+    B --> C(Select Any Filter Option);
     C --> D{General List Displayed?};
     D -- Yes --> E(Verify Results Are Not Blank/Empty);
     E --> F{Results Not Empty?};
