@@ -2,6 +2,7 @@ package com.project.pages;
 
 import com.project.pages.components.PaginationComponent;
 import com.project.pages.components.PersonnelRecord;
+import com.project.pages.components.AlphabetFilterComponent;
 import com.project.utils.ReportLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -22,10 +23,12 @@ public class PeopleSectionPage extends BasePage {
     private static final By PAGE_TITLE = By.cssSelector(".titulo-page h2");
 
     private final PaginationComponent paginationComponent;
+    private final AlphabetFilterComponent alphabetFilterComponent;
 
     public PeopleSectionPage() {
         super();
         this.paginationComponent = new PaginationComponent(driver);
+        this.alphabetFilterComponent = new AlphabetFilterComponent(driver);
     }
 
     /**
@@ -103,6 +106,37 @@ public class PeopleSectionPage extends BasePage {
     }
 
     /**
+     * Applies the 'Any' alphabetical filter by delegating to AlphabetFilterComponent,
+     * resets pagination to page 1, and waits for records to load.
+     */
+    public void applyAnyFilter() {
+        ReportLogger.log("Applying 'Any' alphabet filter via component");
+        alphabetFilterComponent.selectAny();
+        paginationComponent.goToPage(1);
+        waitForRecordsToLoad();
+    }
+
+    /**
+     * Returns true if the 'Any' filter is currently active.
+     * @return true when Any filter is active
+     */
+    public boolean isAnyFilterActive() {
+        return alphabetFilterComponent.isAnySelected();
+    }
+
+    /**
+     * Applies the specified letter filter by delegating to AlphabetFilterComponent,
+     * resets pagination to page 1, and waits for records to load.
+     * @param letter the letter to select (e.g., "A", "B", "Ñ")
+     */
+    public void applyLetterFilter(String letter) {
+        ReportLogger.log("Applying letter filter: " + letter);
+        alphabetFilterComponent.selectLetter(letter);
+        paginationComponent.goToPage(1);
+        waitForRecordsToLoad();
+    }
+
+    /**
      * Checks if the next page button is enabled.
      * @return true if enabled, false otherwise
      */
@@ -149,5 +183,13 @@ public class PeopleSectionPage extends BasePage {
         }
         String id = String.valueOf(System.identityHashCode(recordElement));
         return new PersonnelRecord(id, name, role, null, null, null);
+    }
+
+    /**
+     * Returns the currently active filter letter (lower-case) or empty string if unknown.
+     * Delegates to AlphabetFilterComponent.getActiveLetter()
+     */
+    public String getActiveFilterLetter() {
+        return alphabetFilterComponent.getActiveLetter();
     }
 }
