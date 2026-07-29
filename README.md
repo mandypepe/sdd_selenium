@@ -170,7 +170,7 @@ graph TD
     A[Start Test: People Navigation] --> B(Navigate to Directory Page);
     B --> C(Verify People Option is Visible and Accessible);
     C --> D{Is People Option Visible?};
-    D -- Yes --> E(Click "People" Option);
+    D -- Yes --> E(Click People Option);
     E --> F{People Section Loads?};
     F -- Yes --> G(Verify List of Personnel Records is Displayed);
     G --> H{Personnel List Visible?};
