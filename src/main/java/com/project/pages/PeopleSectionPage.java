@@ -117,6 +117,26 @@ public class PeopleSectionPage extends BasePage {
     }
 
     /**
+     * Returns true if the 'Any' filter is currently active.
+     * @return true when Any filter is active
+     */
+    public boolean isAnyFilterActive() {
+        return alphabetFilterComponent.isAnySelected();
+    }
+
+    /**
+     * Applies the specified letter filter by delegating to AlphabetFilterComponent,
+     * resets pagination to page 1, and waits for records to load.
+     * @param letter the letter to select (e.g., "A", "B", "Ñ")
+     */
+    public void applyLetterFilter(String letter) {
+        ReportLogger.log("Applying letter filter: " + letter);
+        alphabetFilterComponent.selectLetter(letter);
+        paginationComponent.goToPage(1);
+        waitForRecordsToLoad();
+    }
+
+    /**
      * Checks if the next page button is enabled.
      * @return true if enabled, false otherwise
      */
