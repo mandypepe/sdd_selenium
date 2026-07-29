@@ -184,4 +184,12 @@ public class PeopleSectionPage extends BasePage {
         String id = String.valueOf(System.identityHashCode(recordElement));
         return new PersonnelRecord(id, name, role, null, null, null);
     }
+
+    /**
+     * Returns the currently active filter letter (lower-case) or empty string if unknown.
+     * Delegates to AlphabetFilterComponent.getActiveLetter()
+     */
+    public String getActiveFilterLetter() {
+        return alphabetFilterComponent.getActiveLetter();
+    }
 }
