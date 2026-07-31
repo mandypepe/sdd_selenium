@@ -134,21 +134,21 @@ graph TD
 This flowchart details the execution flow for the web availability health check test, demonstrating initialization, page loading, and content verification steps.
 
 ```mermaid
-graph TD
-    A[Start Test Execution] --> B(BaseTest.setUp: Initialize WebDriver & Navigate to Base URL);
-    B --> C{HealthCheckPage Loaded?};
-    C -- Yes --> D(HealthCheckTests.verifyNoBlankScreenOrServerError);
-    D --> E{Page Title Not Empty & No Server Errors?};
-    E -- Yes --> F(HealthCheckTests.verifyDirectoryContentVisible);
-    F --> G{Directory Content Visible?};
-    G -- Yes --> H(Test Passed);
-    C -- No --> I(Test Failed: Page Not Loaded);
-    E -- No --> J(Test Failed: Blank Screen or Server Error);
-    G -- No --> K(Test Failed: Directory Content Not Visible);
-    H --> L(End Test Execution);
-    I --> L;
-    J --> L;
-    K --> L;
+flowchart TD
+    A[Start Test Execution] --> B["BaseTest.setUp: Initialize WebDriver & Navigate to Base URL"]
+    B --> C{HealthCheckPage Loaded?}
+    C -- Yes --> D["HealthCheckTests.verifyNoBlankScreenOrServerError"]
+    D --> E{Page Title Not Empty & No Server Errors?}
+    E -- Yes --> F["HealthCheckTests.verifyDirectoryContentVisible"]
+    F --> G{Directory Content Visible?}
+    G -- Yes --> H[Test Passed]
+    C -- No --> I[Test Failed: Page Not Loaded]
+    E -- No --> J[Test Failed: Blank Screen or Server Error]
+    G -- No --> K[Test Failed: Directory Content Not Visible]
+    H --> L[End Test Execution]
+    I --> L
+    J --> L
+    K --> L
 ```
 
 ---
@@ -158,21 +158,21 @@ graph TD
 This flowchart details the execution flow for the people directory initial load verification, demonstrating navigation, title/header verification, and initial list population.
 
 ```mermaid
-graph TD
-    A[Start Test: Initial Page Load] --> B(Navigate to Directory URL);
-    B --> C{Page Loaded Successfully?};
-    C -- Yes --> D(Verify Main Title and Personas Header);
-    D --> E{Title and Header Visible?};
-    E -- Yes --> F(Verify Default List of People is Visible);
-    F --> G{People List Displayed?};
-    G -- Yes --> H(Test Passed);
-    C -- No --> I(Test Failed: Page Load Error);
-    E -- No --> J(Test Failed: Title/Header Missing);
-    G -- No --> K(Test Failed: People List Not Visible);
-    H --> L(End Test);
-    I --> L;
-    J --> L;
-    K --> L;
+flowchart TD
+    A[Start Test: Initial Page Load] --> B["Navigate to Directory URL"]
+    B --> C{Page Loaded Successfully?}
+    C -- Yes --> D["Verify Main Title and Personas Header"]
+    D --> E{Title and Header Visible?}
+    E -- Yes --> F["Verify Default List of People is Visible"]
+    F --> G{People List Displayed?}
+    G -- Yes --> H[Test Passed]
+    C -- No --> I[Test Failed: Page Load Error]
+    E -- No --> J[Test Failed: Title/Header Missing]
+    G -- No --> K[Test Failed: People List Not Visible]
+    H --> L[End Test]
+    I --> L
+    J --> L
+    K --> L
 ```
 
 ---
@@ -182,24 +182,24 @@ graph TD
 This flowchart details the execution flow for validating the "People" section navigation, demonstrating visibility, clicking, and content display.
 
 ```mermaid
-graph TD
-    A[Start Test: People Navigation] --> B(Navigate to Directory Page);
-    B --> C(Verify People Option is Visible and Accessible);
-    C --> D{Is People Option Visible?};
-    D -- Yes --> E(Click People Option);
-    E --> F{People Section Loads?};
-    F -- Yes --> G(Verify List of Personnel Records is Displayed);
-    G --> H{Personnel List Visible?};
-    H -- Yes --> I(Verify Each Record Displays Full Name);
-    I --> J(Verify Role/Title Displayed for Individuals);
-    J --> K(Test Passed);
-    D -- No --> L(Test Failed: People Option Missing);
-    F -- No --> M(Test Failed: Section Not Loaded);
-    H -- No --> N(Test Failed: Personnel List Not Visible);
-    K --> O(End Test);
-    L --> O;
-    M --> O;
-    N --> O;
+flowchart TD
+    A[Start Test: People Navigation] --> B["Navigate to Directory Page"]
+    B --> C["Verify People Option is Visible and Accessible"]
+    C --> D{Is People Option Visible?}
+    D -- Yes --> E["Click People Option"]
+    E --> F{People Section Loads?}
+    F -- Yes --> G["Verify List of Personnel Records is Displayed"]
+    G --> H{Personnel List Visible?}
+    H -- Yes --> I["Verify Each Record Displays Full Name"]
+    I --> J["Verify Role/Title Displayed for Individuals"]
+    J --> K[Test Passed]
+    D -- No --> L[Test Failed: People Option Missing]
+    F -- No --> M[Test Failed: Section Not Loaded]
+    H -- No --> N[Test Failed: Personnel List Not Visible]
+    K --> O[End Test]
+    L --> O
+    M --> O
+    N --> O
 ```
 
 ---
@@ -209,22 +209,22 @@ graph TD
 This flowchart details the execution flow for validating the "Any" alphabetical filter with pagination, demonstrating filter selection, result display, and pagination functionality.
 
 ```mermaid
-graph TD
-    A[Start Test: Any Filter] --> B(Navigate to Directory Page);
-    B --> C(Select Any Filter Option);
-    C --> D{General List Displayed?};
-    D -- Yes --> E(Verify Results Are Not Blank/Empty);
-    E --> F{Results Not Empty?};
-    F -- Yes --> G(Verify Pagination Controls are Functional);
-    G --> H{Pagination Works?};
-    H -- Yes --> I(Test Passed);
-    D -- No --> J(Test Failed: List Not Displayed);
-    F -- No --> K(Test Failed: Results Empty);
-    H -- No --> L(Test Failed: Pagination Broken);
-    I --> M(End Test);
-    J --> M;
-    K --> M;
-    L --> M;
+flowchart TD
+    A[Start Test: Any Filter] --> B["Navigate to Directory Page"]
+    B --> C["Select Any Filter Option"]
+    C --> D{General List Displayed?}
+    D -- Yes --> E["Verify Results Are Not Blank/Empty"]
+    E --> F{Results Not Empty?}
+    F -- Yes --> G["Verify Pagination Controls are Functional"]
+    G --> H{Pagination Works?}
+    H -- Yes --> I[Test Passed]
+    D -- No --> J[Test Failed: List Not Displayed]
+    F -- No --> K[Test Failed: Results Empty]
+    H -- No --> L[Test Failed: Pagination Broken]
+    I --> M[End Test]
+    J --> M
+    K --> M
+    L --> M
 ```
 
 ---
@@ -234,33 +234,33 @@ graph TD
 This diagram illustrates the comprehensive architecture and relationships for the Spanish alphabet filter validation feature, supporting all 27 characters (A-Z + Ñ) with performance monitoring and UTF-8 encoding support.
 
 ```mermaid
-graph TD
+flowchart TD
     subgraph "TC-008 Specification Layer"
-        A[spec.md: 27 Spanish Alphabet Support]
-        B[User Stories US1-US3]
-        C[Functional Requirements FR-001 to FR-006]
-        D[Success Criteria SC-001 to SC-004]
+        A["spec.md: 27 Spanish Alphabet Support"]
+        B["User Stories US1-US3"]
+        C["Functional Requirements FR-001 to FR-006"]
+        D["Success Criteria SC-001 to SC-004"]
     end
 
     subgraph "Test Implementation Layer"
-        E[AlphabetFilterFullCoverageTest.java]
-        F[AlphabetDataProvider.java]
-        G[Performance & Encoding Utils]
+        E["AlphabetFilterFullCoverageTest.java"]
+        F["AlphabetDataProvider.java"]
+        G["Performance & Encoding Utils"]
     end
 
     subgraph "Page Object Layer"
-        H[DirectoryPage.java]
-        I[AlphabetFilterComponent.java]
-        J[PersonList.java]
-        K[PeopleSectionPage.java]
+        H["DirectoryPage.java"]
+        I["AlphabetFilterComponent.java"]
+        J["PersonList.java"]
+        K["PeopleSectionPage.java"]
     end
 
     subgraph "Utility & Support Layer"
-        L[PerformanceUtils.java]
-        M[EncodingUtils.java]
-        N[AlphabetValidationReporter.java]
-        O[WaitUtils.java]
-        P[BasePage.java]
+        L["PerformanceUtils.java"]
+        M["EncodingUtils.java"]
+        N["AlphabetValidationReporter.java"]
+        O["WaitUtils.java"]
+        P["BasePage.java"]
     end
 
     A --> E
