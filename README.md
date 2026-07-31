@@ -52,10 +52,16 @@ public void miTest() {
 mvn test
 ```
 ```bash
-mvn test -DtestCategory=smoke
+mvn test -DtestCategory=smoke -Dheadless=true
 ```
 ```bash
-mvn test -DtestCategory=regression
+mvn test -DtestCategory=regression -Dheadless=true
+```
+```bash
+mvn test -Dheadless=true
+```
+```bash
+mvn test -DtestCategory=critical -Dheadless=true
 ```
 
 ### Notes:
@@ -79,36 +85,46 @@ graph TD
         B[TC-002: Web Availability Check]
         C[TC-003: People Navigation]
         D[TC-006: Any Filter]
+        E[TC-008: Alphabet Index Filter]
     end
 
     subgraph Test Classes
-        E[PeopleDirectoryLoadTest.java]
-        F[HealthCheckTests.java]
-        G[PeopleSectionStaffListTest.java]
-        H[AnyFilterAndPaginationTest.java]
+        F[PeopleDirectoryLoadTest.java]
+        G[HealthCheckTests.java]
+        H[PeopleSectionStaffListTest.java]
+        I[AnyFilterAndPaginationTest.java]
+        J[AlphabetFilterFullCoverageTest.java]
     end
 
     subgraph Page Objects
-        I[DirectoryPage.java]
-        J[HealthCheckPage.java]
-        K[PersonList.java]
-        L[BasePage.java]
+        K[DirectoryPage.java]
+        L[HealthCheckPage.java]
+        M[PersonList.java]
+        N[BasePage.java]
+        O[AlphabetFilterComponent.java]
+        P[PeopleSectionPage.java]
     end
 
-    A --> E
-    B --> F
-    C --> G
-    D --> H
+    A --> F
+    B --> G
+    C --> H
+    D --> I
+    E --> J
 
-    E --> I
-    F --> J
-    G --> I
-    H --> I
-
+    F --> K
+    G --> L
+    H --> K
     I --> K
-    I --> L
-    J --> L
-    K --> L
+    J --> K
+
+    K --> M
+    K --> N
+    K --> O
+    K --> P
+    L --> N
+    M --> N
+    O --> N
+    P --> N
 ```
 
 ---
@@ -209,4 +225,121 @@ graph TD
     J --> M;
     K --> M;
     L --> M;
+```
+
+---
+
+## TC-008: Directory Alphabetical Index Filter Validation
+
+This diagram illustrates the comprehensive architecture and relationships for the Spanish alphabet filter validation feature, supporting all 27 characters (A-Z + Ñ) with performance monitoring and UTF-8 encoding support.
+
+```mermaid
+graph TD
+    subgraph "TC-008 Specification Layer"
+        A[spec.md: 27 Spanish Alphabet Support]
+        B[User Stories US1-US3]
+        C[Functional Requirements FR-001 to FR-006]
+        D[Success Criteria SC-001 to SC-004]
+    end
+
+    subgraph "Test Implementation Layer"
+        E[AlphabetFilterFullCoverageTest.java]
+        F[AlphabetDataProvider.java]
+        G[Performance & Encoding Utils]
+    end
+
+    subgraph "Page Object Layer"
+        H[DirectoryPage.java]
+        I[AlphabetFilterComponent.java]
+        J[PersonList.java]
+        K[PeopleSectionPage.java]
+    end
+
+    subgraph "Utility & Support Layer"
+        L[PerformanceUtils.java]
+        M[EncodingUtils.java]
+        N[AlphabetValidationReporter.java]
+        O[WaitUtils.java]
+        P[BasePage.java]
+    end
+
+    A --> E
+    B --> E
+    C --> E
+    D --> E
+
+    E --> F
+    E --> G
+    E --> H
+
+    H --> I
+    H --> J
+    H --> K
+
+    I --> L
+    I --> M
+    J --> N
+    J --> O
+    K --> P
+
+    F --> I
+    G --> L
+    G --> M
+```
+
+---
+
+## TC-008: Complete Alphabet Validation Flow
+
+This flowchart details the execution flow for validating all 27 Spanish alphabet characters with performance monitoring, empty state handling, and UTF-8 encoding support.
+
+```mermaid
+graph TD
+    A[Start TC-008: Alphabet Filter Validation] --> B(BaseTest.setUp: Initialize WebDriver);
+    B --> C(Navigate to Directory Page);
+    C --> D{Alphabet Filter Available?};
+    
+    D -- No --> E[Framework Validation Mode];
+    E --> F(Validate Framework Capabilities);
+    F --> G[Generate Framework Report];
+    G --> H[End Test];
+    
+    D -- Yes --> I[Start Performance Monitoring];
+    I --> J[Loop Through 27 Spanish Letters A-Z + Ñ];
+    
+    J --> K[Select Letter with UTF-8 Encoding];
+    K --> L{Letter Clickable?};
+    
+    L -- No --> M[Record Empty State];
+    M --> N{Empty State Message Displayed?};
+    N -- Yes --> O[Record Success for Empty State];
+    N -- No --> P[Record Failure: Missing Empty Message];
+    
+    L -- Yes --> Q[Click Letter with Retry Logic];
+    Q --> R{Results Loaded?};
+    
+    R -- No --> S[Record Failure: No Results];
+    R -- Yes --> T[Validate Results Match Letter];
+    T --> U{Results Valid?};
+    
+    U -- Yes --> V[Record Success];
+    U -- No --> W[Record Failure: Invalid Results];
+    
+    O --> X{More Letters to Test?};
+    P --> X;
+    S --> X;
+    V --> X;
+    W --> X;
+    
+    X -- Yes --> Y[Check Performance Target <10s per letter];
+    Y --> J;
+    
+    X -- No --> Z[Generate Comprehensive Report];
+    Z --> AA{Total Time <3 minutes?};
+    AA -- Yes --> BB[Test Passed: All Criteria Met];
+    AA -- No --> CC[Test Failed: Performance Issue];
+    
+    BB --> DD[End Test];
+    CC --> DD;
+    H --> DD;
 ```
