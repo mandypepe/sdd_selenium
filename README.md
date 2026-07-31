@@ -79,30 +79,30 @@ mvn test -DtestCategory=critical -Dheadless=true
 This diagram illustrates the general relationship between feature specifications, test classes, and page objects within the framework.
 
 ```mermaid
-graph TD
+flowchart TD
     subgraph Specifications
-        A[TC-001: Initial Page Load]
-        B[TC-002: Web Availability Check]
-        C[TC-003: People Navigation]
-        D[TC-006: Any Filter]
-        E[TC-008: Alphabet Index Filter]
+        A["TC-001: Initial Page Load"]
+        B["TC-002: Web Availability Check"]
+        C["TC-003: People Navigation"]
+        D["TC-006: Any Filter"]
+        E["TC-008: Alphabet Index Filter"]
     end
 
     subgraph Test Classes
-        F[PeopleDirectoryLoadTest.java]
-        G[HealthCheckTests.java]
-        H[PeopleSectionStaffListTest.java]
-        I[AnyFilterAndPaginationTest.java]
-        J[AlphabetFilterFullCoverageTest.java]
+        F["PeopleDirectoryLoadTest.java"]
+        G["HealthCheckTests.java"]
+        H["PeopleSectionStaffListTest.java"]
+        I["AnyFilterAndPaginationTest.java"]
+        J["AlphabetFilterFullCoverageTest.java"]
     end
 
     subgraph Page Objects
-        K[DirectoryPage.java]
-        L[HealthCheckPage.java]
-        M[PersonList.java]
-        N[BasePage.java]
-        O[AlphabetFilterComponent.java]
-        P[PeopleSectionPage.java]
+        K["DirectoryPage.java"]
+        L["HealthCheckPage.java"]
+        M["PersonList.java"]
+        N["BasePage.java"]
+        O["AlphabetFilterComponent.java"]
+        P["PeopleSectionPage.java"]
     end
 
     A --> F
