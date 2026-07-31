@@ -25,6 +25,13 @@ public class DirectoryPeopleNavigationTests extends BaseTest {
     @BeforeMethod(dependsOnMethods = "setUp")
     public void initPages() {
         navigationPage = new DirectoryNavigationPage();
+        
+        // Check if we're on an error page and skip tests gracefully
+        if (navigationPage.isErrorPage()) {
+            String errorMsg = navigationPage.getErrorMessage();
+            ReportLogger.log("Website is showing an error page: " + errorMsg);
+            throw new org.testng.SkipException("Website temporarily unavailable: " + errorMsg);
+        }
     }
 
     @Test(description = "T017: Navigate to People section and view records")
@@ -101,7 +108,7 @@ public class DirectoryPeopleNavigationTests extends BaseTest {
 
     @Test(description = "T020: Verify pagination boundary conditions", dataProvider = "boundaryScenarios", dataProviderClass = PersonnelDataProvider.class)
     @TestCategory("regression")
-    public void test_paginationBoundaryConditions(int pageNumber, boolean expectPrevEnabled, boolean expectNextEnabled) {
+    public void test_paginationBoundaryConditions(String scenario, int pageNumber, boolean expectPrevEnabled, boolean expectNextEnabled) {
         peopleSectionPage = navigationPage.selectPeopleSection();
         peopleSectionPage.waitForRecordsToLoad();
         

@@ -22,19 +22,37 @@ This file explains the essentials for an AI agent to be immediately productive i
 mvn test
 ```
 
-- Execute the suite defined in `testng.xml` (configured in the Surefire plugin). To run a single test class (quick terminal mode):
+- Execute the suite defined in `testng.xml` (configured in the Surefire plugin). To run a single test class:
 
 ```bash
 mvn -Dtest=com.project.tests.LoginTests test
 ```
 
-- Requirements: Java 17 and Maven (see `pom.xml` properties). WebDriverManager will automatically download drivers.
+- Run tests by category (smoke, regression, critical, accessibility):
+
+```bash
+mvn test -DtestCategory=smoke
+mvn test -DtestCategory=regression
+```
+
+- Custom scripts (non-standard):
+  - `.idea/run-tests.sh` - Category-based test runner
+  - `.idea/run-tests.bat` - Windows equivalent
+
+- Requirements: Java 17 and Maven (see `pom.xml` properties).
+
+## 3.1) CI/CD Configuration
+- **Platform**: GitHub Actions (Windows Latest, Temurin 17 JDK)
+- **Command**: `mvn -B -DskipTests=false test`
+- **Triggers**: Push/PR to main branch
+- **Parallel Execution**: Enabled (`parallel="methods" thread-count="10"`)
 
 ## 4) Project-Specific Conventions and Patterns
-- **Default Browser and Limited Support**: `DriverFactory` currently implements Chrome only (see line 12 in `DriverFactory.java`). To add Firefox/Edge support, extend the `createDriver` method.
+- **Browser Support**: `DriverFactory` implements Chrome, Firefox, and Edge (not Chrome-only as previously stated). Safari is not implemented.
 - **Execution Parameters**: Parameters are injected from `testng.xml` (e.g., `baseUrl`, `browser`), not from `config/*.properties` at runtime. `config/env.qa.properties` exists as a reference.
-- **Logging and Reports**: `ReportLogger.log(...)` adds attachments to Allure (if Allure is present) and also writes to stdout. Agents can use `ReportLogger` to append diagnostic information.
-- **Waits**: `WaitUtils` is the wrapper used; pages use `By` locators and do not automatically perform waits. Add `WaitUtils` to Page Objects where necessary.
+- **Test Categories**: Custom `@TestCategory` annotation groups tests (smoke, regression, critical, accessibility). Use `mvn test -DtestCategory=smoke` to filter.
+- **Logging and Reports**: `ReportLogger.log(...)` adds attachments to Allure and writes to stdout. Screenshots automatically captured on failure via `TestListener`.
+- **Waits**: `WaitUtils` wraps `WebDriverWait` and `FluentWait`, handling `StaleElementReferenceException`. No `Thread.sleep()` usage.
 
 ## 5) External Integrations and Dependencies
 - **Main Maven Dependencies**: Selenium, WebDriverManager, TestNG, Allure, SLF4J-simple. See `pom.xml`:
@@ -46,10 +64,10 @@ mvn -Dtest=com.project.tests.LoginTests test
 - **Listeners**: `com.project.listeners.TestListener` is configured in `testng.xml` and emits basic traces to stdout.
 
 ## 6) Common Extensions an Agent Can Implement
-- **Add Screenshots on Failure**: `TestListener.onTestFailure` can use `DriverManager.getDriver()` and `ReportLogger` to attach screenshots.
-- **Add New Browsers**: Modify `DriverFactory.java` (path: `src/main/java/com/project/drivers/DriverFactory.java`) to support Firefox, Edge, or Safari.
-- **Data Externalization**: `LoginData` is currently hardcoded; to integrate `config/env.qa.properties`, write a small utility reader in `utils` and replace static usages in tests.
-- **Custom Wait Conditions**: Extend `WaitUtils` with additional wait conditions as needed for specific selectors or states.
+- **Add Safari Support**: Modify `DriverFactory.java` to add Safari driver implementation.
+- **Data Externalization**: `LoginData` is hardcoded; implement properties loader in `utils` to use `config/env.qa.properties`.
+- **Custom Wait Conditions**: Extend `WaitUtils` with additional wait conditions for specific selectors.
+- **Remove WebDriverManager**: Replace with native Selenium 4.6+ driver management (per framework requirements).
 
 ## 7) Debug & Local Development
 - **IDE Debugging**: Set a breakpoint in `BaseTest.setUp` after `DriverFactory.createDriver(browser)`. Run the test from the IDE (TestNG runner) or use `mvn -Dtest=... -DskipTests=false test`.

@@ -1,75 +1,90 @@
 package com.project.pages;
 
-import com.project.utils.ReportLogger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.openqa.selenium.WebDriver;
 
 /**
- * Page object for Directory Navigation Menu.
+ * Page Object for Directory Navigation.
+ * Uses stable CSS selectors instead of fragile XPath.
  */
 public class DirectoryNavigationPage extends BasePage {
 
-    private static final By NAVIGATION_MENU = By.cssSelector(".menu-directorio");
-    private static final By MENU_ITEMS = By.cssSelector(".menu-directorio .menu-item a");
-    private static final By ACTIVE_SECTION = By.cssSelector(".menu-directorio .menu-item.menu-item--active-trail a");
-    private static final By PEOPLE_NAV_LINK = By.xpath("//div[contains(@class,'menu-directorio')]//a[contains(text(),'Persona')]");
+    // Using stable CSS selectors instead of XPath with contains()
+    private static final By PEOPLE_NAV_LINK = By.cssSelector(".menu-directorio a[href*='persona'], [data-testid='people-nav-link']");
+    private static final By UNIVERSITIES_NAV_LINK = By.cssSelector(".menu-directorio a[href*='universidad'], [data-testid='universities-nav-link']");
+    private static final By PHONES_NAV_LINK = By.cssSelector(".menu-directorio a[href*='telefono'], [data-testid='phones-nav-link']");
+    private static final By ACTIVE_MENU_ITEM = By.cssSelector(".menu-item.menu-item--active-trail a");
 
     public DirectoryNavigationPage() {
         super();
     }
 
-    /**
-     * Navigates to the directory URL.
-     * @param baseUrl the base URL to navigate to
-     */
-    public void openDirectory(String baseUrl) {
-        ReportLogger.log("Opening directory URL: " + baseUrl);
-        driver.get(baseUrl);
+    public DirectoryNavigationPage(WebDriver driver) {
+        super(driver);
     }
 
     /**
-     * Checks if the 'Personas' option is visible in the navigation menu.
-     * @return true if visible, false otherwise
+     * Clicks on People section in the directory navigation
      */
-    public boolean isPeopleOptionVisible() {
+    public void clickPeopleSection() {
+        click(PEOPLE_NAV_LINK);
+    }
+
+    /**
+     * Clicks on Universities section in the directory navigation
+     */
+    public void clickUniversitiesSection() {
+        click(UNIVERSITIES_NAV_LINK);
+    }
+
+    /**
+     * Clicks on Phones section in the directory navigation
+     */
+    public void clickPhonesSection() {
+        click(PHONES_NAV_LINK);
+    }
+
+    /**
+     * Gets the text of the currently active navigation item
+     */
+    public String getActiveSectionText() {
+        return getText(ACTIVE_MENU_ITEM);
+    }
+
+    /**
+     * Checks if People navigation link is visible
+     */
+    public boolean isPeopleLinkVisible() {
         return isElementDisplayed(PEOPLE_NAV_LINK);
     }
 
     /**
-     * Selects the 'Personas' section.
-     * @return a new PeopleSectionPage
+     * Checks if Universities navigation link is visible
+     */
+    public boolean isUniversitiesLinkVisible() {
+        return isElementDisplayed(UNIVERSITIES_NAV_LINK);
+    }
+
+    /**
+     * Checks if Phones navigation link is visible
+     */
+    public boolean isPhonesLinkVisible() {
+        return isElementDisplayed(PHONES_NAV_LINK);
+    }
+
+    /**
+     * Checks if People option is visible (backward compatibility)
+     */
+    public boolean isPeopleOptionVisible() {
+        return isPeopleLinkVisible();
+    }
+
+    /**
+     * Selects People section and waits for navigation
      */
     public PeopleSectionPage selectPeopleSection() {
-        ReportLogger.log("Selecting 'Personas' section");
-        click(PEOPLE_NAV_LINK);
-        wait.until(ExpectedConditions.urlContains("personas"));
+        clickPeopleSection();
+        waitForUrlContains("personas");
         return new PeopleSectionPage();
-    }
-
-    /**
-     * Retrieves all available navigation options as text.
-     * @return a list of available option names
-     */
-    public List<String> getAvailableNavigationOptions() {
-        ReportLogger.log("Getting available navigation options");
-        List<WebElement> elements = waitForAllVisible(MENU_ITEMS);
-        List<String> options = new ArrayList<>();
-        for (WebElement el : elements) {
-            options.add(el.getText().trim());
-        }
-        return options;
-    }
-
-    /**
-     * Returns the currently active section text.
-     * @return active section text
-     */
-    public String getActiveSection() {
-        ReportLogger.log("Getting active navigation section text");
-        return getText(ACTIVE_SECTION).trim();
     }
 }

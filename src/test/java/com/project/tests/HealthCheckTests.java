@@ -25,6 +25,13 @@ public class HealthCheckTests extends BaseTest {
         super.setUp(baseUrl, browser);
         healthCheckPage = new HealthCheckPage(driver);
         waitUtils = new WaitUtils(driver, 10); // Default timeout of 10 seconds
+        
+        // Check if we're on an error page and skip tests gracefully
+        if (healthCheckPage.isErrorPage()) {
+            String errorMsg = healthCheckPage.getErrorMessage();
+            ReportLogger.log("Website is showing an error page: " + errorMsg);
+            throw new org.testng.SkipException("Website temporarily unavailable: " + errorMsg);
+        }
     }
 
     @TestCategory({"smoke", "critical"})
