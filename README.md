@@ -294,52 +294,52 @@ flowchart TD
 This flowchart details the execution flow for validating all 27 Spanish alphabet characters with performance monitoring, empty state handling, and UTF-8 encoding support.
 
 ```mermaid
-graph TD
-    A[Start TC-008: Alphabet Filter Validation] --> B(BaseTest.setUp: Initialize WebDriver);
-    B --> C(Navigate to Directory Page);
-    C --> D{Alphabet Filter Available?};
+flowchart TD
+    A["Start TC-008: Alphabet Filter Validation"] --> B["BaseTest.setUp: Initialize WebDriver"]
+    B --> C["Navigate to Directory Page"]
+    C --> D{Alphabet Filter Available?}
     
-    D -- No --> E[Framework Validation Mode];
-    E --> F(Validate Framework Capabilities);
-    F --> G[Generate Framework Report];
-    G --> H[End Test];
+    D -- No --> E["Framework Validation Mode"]
+    E --> F["Validate Framework Capabilities"]
+    F --> G["Generate Framework Report"]
+    G --> H["End Test"]
     
-    D -- Yes --> I[Start Performance Monitoring];
-    I --> J[Loop Through 27 Spanish Letters A-Z + Ñ];
+    D -- Yes --> I["Start Performance Monitoring"]
+    I --> J["Loop Through 27 Spanish Letters A-Z + Ñ"]
     
-    J --> K[Select Letter with UTF-8 Encoding];
-    K --> L{Letter Clickable?};
+    J --> K["Select Letter with UTF-8 Encoding"]
+    K --> L{Letter Clickable?}
     
-    L -- No --> M[Record Empty State];
-    M --> N{Empty State Message Displayed?};
-    N -- Yes --> O[Record Success for Empty State];
-    N -- No --> P[Record Failure: Missing Empty Message];
+    L -- No --> M["Record Empty State"]
+    M --> N{Empty State Message Displayed?}
+    N -- Yes --> O["Record Success for Empty State"]
+    N -- No --> P["Record Failure: Missing Empty Message"]
     
-    L -- Yes --> Q[Click Letter with Retry Logic];
-    Q --> R{Results Loaded?};
+    L -- Yes --> Q["Click Letter with Retry Logic"]
+    Q --> R{Results Loaded?}
     
-    R -- No --> S[Record Failure: No Results];
-    R -- Yes --> T[Validate Results Match Letter];
-    T --> U{Results Valid?};
+    R -- No --> S["Record Failure: No Results"]
+    R -- Yes --> T["Validate Results Match Letter"]
+    T --> U{Results Valid?}
     
-    U -- Yes --> V[Record Success];
-    U -- No --> W[Record Failure: Invalid Results];
+    U -- Yes --> V["Record Success"]
+    U -- No --> W["Record Failure: Invalid Results"]
     
-    O --> X{More Letters to Test?};
-    P --> X;
-    S --> X;
-    V --> X;
-    W --> X;
+    O --> X{More Letters to Test?}
+    P --> X
+    S --> X
+    V --> X
+    W --> X
     
-    X -- Yes --> Y[Check Performance Target <10s per letter];
-    Y --> J;
+    X -- Yes --> Y["Check Performance Target <10s per letter"]
+    Y --> J
     
-    X -- No --> Z[Generate Comprehensive Report];
-    Z --> AA{Total Time <3 minutes?};
-    AA -- Yes --> BB[Test Passed: All Criteria Met];
-    AA -- No --> CC[Test Failed: Performance Issue];
+    X -- No --> Z["Generate Comprehensive Report"]
+    Z --> AA{Total Time <3 minutes?}
+    AA -- Yes --> BB["Test Passed: All Criteria Met"]
+    AA -- No --> CC["Test Failed: Performance Issue"]
     
-    BB --> DD[End Test];
-    CC --> DD;
-    H --> DD;
+    BB --> DD["End Test"]
+    CC --> DD
+    H --> DD
 ```
