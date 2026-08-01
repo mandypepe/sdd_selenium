@@ -68,6 +68,51 @@ public abstract class BasePage {
     }
     
     /**
+     * Debug method to check what elements are actually present on the page
+     */
+    protected void debugPageState(String testName) {
+        try {
+            String currentUrl = getCurrentUrl();
+            String pageTitle = driver.getTitle();
+            String pageSource = driver.getPageSource();
+            
+            ReportLogger.log("=== DEBUG PAGE STATE for " + testName + " ===");
+            ReportLogger.log("Current URL: " + currentUrl);
+            ReportLogger.log("Page Title: " + pageTitle);
+            
+            // Check for common error indicators
+            if (pageSource.contains("ERR_") || pageSource.contains("Error") || 
+                pageSource.contains("error") || pageSource.contains("404") ||
+                pageSource.contains("No se puede acceder") || pageSource.contains("temporalmente inactiva")) {
+                ReportLogger.log("ERROR PAGE DETECTED - Website may be unavailable");
+            }
+            
+            // Check for common content containers
+            String[] commonSelectors = {
+                "main", "article", ".content", ".view-content", ".container", 
+                ".row", ".col", "div[class*='content']", "div[class*='view']",
+                "table", "tbody", "tr", "td", "ul", "li"
+            };
+            
+            for (String selector : commonSelectors) {
+                try {
+                    List<WebElement> elements = driver.findElements(By.cssSelector(selector));
+                    if (!elements.isEmpty()) {
+                        ReportLogger.log("Found " + elements.size() + " elements with selector: " + selector);
+                    }
+                } catch (Exception e) {
+                    // Ignore selector errors
+                }
+            }
+            
+            ReportLogger.log("=== END DEBUG ===");
+            
+        } catch (Exception e) {
+            ReportLogger.log("Debug failed: " + e.getMessage());
+        }
+    }
+    
+    /**
      * More flexible element checking that tries multiple selectors
      */
     protected boolean isElementDisplayedWithFallback(By... locators) {
