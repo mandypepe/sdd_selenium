@@ -4,6 +4,23 @@
         <listener class-name="com.project.listeners.TestListener" />
         <listener class-name="com.project.listeners.CategoryListener" />
     </listeners>
+    
+    <!-- Connectivity-aware test suite controller -->
+    <suite-files>
+        <!-- Run connectivity check before all tests -->
+    </suite-files>
+    
+    <!-- Suite-level parameters -->
+    <parameter name="offlineMode" value="auto"/> <!-- Options: auto, true, false -->
+
+    <!-- Connectivity-aware test suite controller -->
+    <test name="ConnectivityAwareSuite" enabled="true">
+        <parameter name="baseUrl" value="https://www.uci.cu/index.php/directorio/personas"/>
+        <parameter name="offlineMode" value="auto"/>
+        <classes>
+            <class name="com.project.tests.suite.ConnectivityAwareTestSuite"/>
+        </classes>
+    </test>
 
     <test name="DirectoryLoadTests">
         <parameter name="baseUrl" value="https://www.uci.cu/index.php/directorio/personas"/>

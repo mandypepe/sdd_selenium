@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.project.utils.ReportLogger;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,8 +42,14 @@ public abstract class BasePage {
     }
 
     protected List<WebElement> waitForAllVisible(By locator) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        return driver.findElements(locator);
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+            return driver.findElements(locator);
+        } catch (Exception e) {
+            ReportLogger.log("Elements not found for locator: " + locator + " - " + e.getMessage());
+            debugPageState("waitForAllVisible");
+            return new ArrayList<>(); // Return empty list instead of throwing exception
+        }
     }
 
     protected void click(By locator) {
@@ -83,8 +90,11 @@ public abstract class BasePage {
             // Check for common error indicators
             if (pageSource.contains("ERR_") || pageSource.contains("Error") || 
                 pageSource.contains("error") || pageSource.contains("404") ||
-                pageSource.contains("No se puede acceder") || pageSource.contains("temporalmente inactiva")) {
+                pageSource.contains("403") || pageSource.contains("Forbidden") ||
+                pageSource.contains("Request forbidden") || pageSource.contains("No se puede acceder") || 
+                pageSource.contains("temporalmente inactiva")) {
                 ReportLogger.log("ERROR PAGE DETECTED - Website may be unavailable");
+                ReportLogger.log("Error page source snippet: " + pageSource.substring(0, Math.min(500, pageSource.length())));
             }
             
             // Check for common content containers

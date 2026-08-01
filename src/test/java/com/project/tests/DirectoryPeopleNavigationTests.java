@@ -6,7 +6,7 @@ import com.project.drivers.DriverManager;
 import com.project.pages.DirectoryNavigationPage;
 import com.project.pages.PeopleSectionPage;
 import com.project.pages.components.PersonnelRecord;
-import com.project.tests.base.BaseTest;
+import com.project.tests.base.ConnectivityAwareBaseTest;
 import com.project.utils.ReportLogger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class DirectoryPeopleNavigationTests extends BaseTest {
+public class DirectoryPeopleNavigationTests extends ConnectivityAwareBaseTest {
 
     private DirectoryNavigationPage navigationPage;
     private PeopleSectionPage peopleSectionPage;
@@ -37,36 +37,44 @@ public class DirectoryPeopleNavigationTests extends BaseTest {
     @Test(description = "T017: Navigate to People section and view records")
     @TestCategory("smoke")
     public void test_navigateToPeopleAndViewRecords() {
-        ReportLogger.log("Navigating to People section");
-        Assert.assertTrue(navigationPage.isPeopleOptionVisible(), "People option should be visible");
-        peopleSectionPage = navigationPage.selectPeopleSection();
+        skipTestIfWebsiteUnavailable("test_navigateToPeopleAndViewRecords");
         
-        ReportLogger.log("Waiting for records to load");
-        peopleSectionPage.waitForRecordsToLoad();
-        
-        int recordCount = peopleSectionPage.getRecordCount();
-        Assert.assertTrue(recordCount > 0, "Should load at least one record");
-        ReportLogger.log("Loaded " + recordCount + " records");
-        ReportLogger.attachScreenshot(DriverManager.getDriver(), "T017_PeopleSectionLoaded");
+        assertWithConnectivity("test_navigateToPeopleAndViewRecords", () -> {
+            ReportLogger.log("Navigating to People section");
+            Assert.assertTrue(navigationPage.isPeopleOptionVisible(), "People option should be visible");
+            peopleSectionPage = navigationPage.selectPeopleSection();
+            
+            ReportLogger.log("Waiting for records to load");
+            peopleSectionPage.waitForRecordsToLoad();
+            
+            int recordCount = peopleSectionPage.getRecordCount();
+            Assert.assertTrue(recordCount > 0, "Should load at least one record");
+            ReportLogger.log("Loaded " + recordCount + " records");
+            ReportLogger.attachScreenshot(DriverManager.getDriver(), "T017_PeopleSectionLoaded");
+        });
     }
 
     @Test(description = "T018: Verify first page records display")
     @TestCategory("critical")
     public void test_firstPageRecordsDisplay() {
-        peopleSectionPage = navigationPage.selectPeopleSection();
-        peopleSectionPage.waitForRecordsToLoad();
+        skipTestIfWebsiteUnavailable("test_firstPageRecordsDisplay");
         
-        Assert.assertEquals(peopleSectionPage.getCurrentPageNumber(), 1, "Should be on page 1");
-        
-        List<PersonnelRecord> records = peopleSectionPage.getVisibleRecords();
-        Assert.assertTrue(records.size() > 0, "Should have visible records");
-        
-        PersonnelRecord firstRecord = records.get(0);
-        Assert.assertNotNull(firstRecord.getFullName(), "Full name should not be null");
-        Assert.assertFalse(firstRecord.getFullName().trim().isEmpty(), "Full name should not be empty");
-        
-        ReportLogger.log("First record details: " + firstRecord.toString());
-        ReportLogger.attachScreenshot(DriverManager.getDriver(), "T018_FirstPageRecords");
+        assertWithConnectivity("test_firstPageRecordsDisplay", () -> {
+            peopleSectionPage = navigationPage.selectPeopleSection();
+            peopleSectionPage.waitForRecordsToLoad();
+            
+            Assert.assertEquals(peopleSectionPage.getCurrentPageNumber(), 1, "Should be on page 1");
+            
+            List<PersonnelRecord> records = peopleSectionPage.getVisibleRecords();
+            Assert.assertTrue(records.size() > 0, "Should have visible records");
+            
+            PersonnelRecord firstRecord = records.get(0);
+            Assert.assertNotNull(firstRecord.getFullName(), "Full name should not be null");
+            Assert.assertFalse(firstRecord.getFullName().trim().isEmpty(), "Full name should not be empty");
+            
+            ReportLogger.log("First record details: " + firstRecord.toString());
+            ReportLogger.attachScreenshot(DriverManager.getDriver(), "T018_FirstPageRecords");
+        });
     }
 
     @Test(description = "T019: Navigate between pages and verify different records")

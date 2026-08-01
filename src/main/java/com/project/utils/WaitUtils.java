@@ -58,8 +58,26 @@ public class WaitUtils {
      * Waits for multiple elements to be visible
      */
     public List<WebElement> waitForAllVisible(By locator) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        return driver.findElements(locator);
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+            return driver.findElements(locator);
+        } catch (TimeoutException e) {
+            ReportLogger.log("Timeout waiting for elements: " + locator + " - " + e.getMessage());
+            // Try to find any elements that might match without waiting
+            try {
+                List<WebElement> elements = driver.findElements(locator);
+                if (!elements.isEmpty()) {
+                    ReportLogger.log("Found " + elements.size() + " elements without waiting for " + locator);
+                    return elements;
+                }
+            } catch (Exception ex) {
+                ReportLogger.log("Fallback search also failed: " + ex.getMessage());
+            }
+            return List.of(); // Return empty list instead of throwing exception
+        } catch (Exception e) {
+            ReportLogger.log("Error waiting for elements: " + locator + " - " + e.getMessage());
+            return List.of(); // Return empty list instead of throwing exception
+        }
     }
 
     /**

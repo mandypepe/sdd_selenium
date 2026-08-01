@@ -12,7 +12,7 @@ import com.project.utils.PerformanceUtils;
 import com.project.utils.AlphabetValidationReporter;
 import com.project.utils.EncodingUtils;
 import com.project.utils.WaitUtils;
-import com.project.tests.base.BaseTest;
+import com.project.tests.base.ConnectivityAwareBaseTest;
 import com.project.pages.DirectoryPage;
 import com.project.pages.components.AlphabetFilterComponent;
 import com.project.pages.components.PersonList;
@@ -42,7 +42,7 @@ import io.qameta.allure.SeverityLevel;
 @Epic("Directory Validation")
 @Feature("Alphabet Filter")
 @Story("TC-008: Full Alphabet Coverage")
-public class AlphabetFilterFullCoverageTest extends BaseTest {
+public class AlphabetFilterFullCoverageTest extends ConnectivityAwareBaseTest {
 
     private DirectoryPage directoryPage;
     private AlphabetFilterComponent alphabetFilter;
@@ -53,7 +53,7 @@ public class AlphabetFilterFullCoverageTest extends BaseTest {
     public void setUpTest(@Optional("https://www.uci.cu/index.php/directorio/personas") String baseUrl,
                          @Optional("chrome") String browser) {
         super.setUp(baseUrl, browser);
-        directoryPage = new DirectoryPage(driver);
+        directoryPage = new DirectoryPage();
         alphabetFilter = directoryPage.getAlphabetFilter();
         personList = directoryPage.getPersonList();
         

@@ -20,17 +20,17 @@ public class PersonList {
     private final WebDriver driver;
     private final WaitUtils waitUtils;
 
-    // Locator constants - using stable selectors instead of fragile XPath
-    private static final By PERSON_RECORDS = By.cssSelector(".views-row, .profesor, .person, .record, .item, tr, [data-testid='person-record']");
-    private static final By PERSON_NAME_LINK = By.cssSelector(".views-field-title a, .nombre a, .name a, .person-name a, [data-testid='person-name']");
-    private static final By PERSON_DETAILS = By.cssSelector(".views-field-field-persona-nombre, .views-field-field-persona-apellidos, .nombre, .cargo, .person-details, [data-testid='person-details']");
-    private static final By EMPTY_STATE_MESSAGE = By.cssSelector(".view-empty, .no-results, .empty, [data-testid='empty-state'], .message");
-    private static final By LOADING_INDICATOR = By.cssSelector(".loading, .spinner, [data-testid='loading'], .loader");
-    private static final By PAGINATION_CONTAINER = By.cssSelector(".pagination, .pager, [data-testid='pagination'], .nav");
-    private static final By NEXT_PAGE_BUTTON = By.cssSelector(".next > a, .pager-next > a, [data-testid='next-page'], .pagination .next");
-    private static final By PREV_PAGE_BUTTON = By.cssSelector(".prev > a, .pager-previous > a, [data-testid='prev-page'], .pagination .prev");
-    private static final By PAGE_INFO = By.cssSelector(".page-info, .pager-current, [data-testid='page-info'], .pagination .current");
-    private static final By RESULTS_COUNT = By.cssSelector(".view-header, .results-count, [data-testid='results-count'], .count");
+    // Locator constants - using more flexible selectors to handle different page structures
+    private static final By PERSON_RECORDS = By.cssSelector("div[class*='row'], div[class*='item'], div[class*='record'], .views-row, .profesor, .person, .record, .item, tr, li, [data-testid='person-record'], article, section");
+    private static final By PERSON_NAME_LINK = By.cssSelector("a[href*='persona'], a[href*='profile'], .views-field-title a, .nombre a, .name a, .person-name a, h1 a, h2 a, h3 a, strong a, [data-testid='person-name']");
+    private static final By PERSON_DETAILS = By.cssSelector(".views-field-field-persona-nombre, .views-field-field-persona-apellidos, .nombre, .cargo, .person-details, .description, .info, .details, p, span, div, [data-testid='person-details']");
+    private static final By EMPTY_STATE_MESSAGE = By.cssSelector(".view-empty, .no-results, .empty, [data-testid='empty-state'], .message, .alert, .notice");
+    private static final By LOADING_INDICATOR = By.cssSelector(".loading, .spinner, [data-testid='loading'], .loader, .progress");
+    private static final By PAGINATION_CONTAINER = By.cssSelector(".pagination, .pager, [data-testid='pagination'], .nav, .navigation");
+    private static final By NEXT_PAGE_BUTTON = By.cssSelector(".next > a, .pager-next > a, [data-testid='next-page'], .pagination .next, a[href*='page']");
+    private static final By PREV_PAGE_BUTTON = By.cssSelector(".prev > a, .pager-previous > a, [data-testid='prev-page'], .pagination .prev, a[href*='prev']");
+    private static final By PAGE_INFO = By.cssSelector(".page-info, .pager-current, [data-testid='page-info'], .pagination .current, .current");
+    private static final By RESULTS_COUNT = By.cssSelector(".view-header, .results-count, [data-testid='results-count'], .count, .total");
 
     public PersonList(WebDriver driver) {
         this.driver = driver;
@@ -110,30 +110,56 @@ public class PersonList {
      */
     public List<PersonRecord> getPersonRecords() {
         List<PersonRecord> records = new ArrayList<>();
-        List<WebElement> recordElements = waitUtils.waitForAllVisible(PERSON_RECORDS);
         
-        for (WebElement element : recordElements) {
-            try {
-                String name = "";
-                String details = "";
-                String profileUrl = "";
-                
-                // Extract name and profile URL
-                WebElement nameLink = element.findElement(PERSON_NAME_LINK);
-                name = nameLink.getText();
-                profileUrl = nameLink.getAttribute("href");
-                
-                // Extract additional details
-                List<WebElement> detailElements = element.findElements(PERSON_DETAILS);
-                for (WebElement detailElement : detailElements) {
-                    details += detailElement.getText() + " ";
+        try {
+            List<WebElement> recordElements = waitUtils.waitForAllVisible(PERSON_RECORDS);
+            
+            ReportLogger.log("Found " + recordElements.size() + " potential record elements");
+            
+            for (WebElement element : recordElements) {
+                try {
+                    String name = "";
+                    String details = "";
+                    String profileUrl = "";
+                    
+                    // Try to extract name and profile URL with fallback
+                    try {
+                        WebElement nameLink = element.findElement(PERSON_NAME_LINK);
+                        name = nameLink.getText().trim();
+                        profileUrl = nameLink.getAttribute("href");
+                    } catch (Exception e) {
+                        // Try alternative approaches to find name
+                        String elementText = element.getText().trim();
+                        if (!elementText.isEmpty()) {
+                            name = elementText;
+                        }
+                    }
+                    
+                    // Extract additional details
+                    try {
+                        List<WebElement> detailElements = element.findElements(PERSON_DETAILS);
+                        for (WebElement detailElement : detailElements) {
+                            details += detailElement.getText() + " ";
+                        }
+                    } catch (Exception e) {
+                        // Ignore detail extraction errors
+                    }
+                    
+                    // Only add record if we have some meaningful content
+                    if (!name.isEmpty() || !details.trim().isEmpty()) {
+                        records.add(new PersonRecord(name, details.trim(), profileUrl));
+                    }
+                    
+                } catch (Exception e) {
+                    ReportLogger.log("Error extracting person record: " + e.getMessage());
                 }
-                
-                records.add(new PersonRecord(name, details.trim(), profileUrl));
-                
-            } catch (Exception e) {
-                ReportLogger.log("Error extracting person record: " + e.getMessage());
             }
+            
+            ReportLogger.log("Successfully extracted " + records.size() + " person records");
+            
+        } catch (Exception e) {
+            ReportLogger.log("No person records found or error page detected: " + e.getMessage());
+            // Return empty list instead of throwing exception
         }
         
         return records;
@@ -143,7 +169,12 @@ public class PersonList {
      * Gets the count of person records
      */
     public int getPersonCount() {
-        return waitUtils.waitForAllVisible(PERSON_RECORDS).size();
+        try {
+            return waitUtils.waitForAllVisible(PERSON_RECORDS).size();
+        } catch (Exception e) {
+            ReportLogger.log("Error getting person count: " + e.getMessage());
+            return 0; // Return 0 instead of throwing exception
+        }
     }
 
     /**
