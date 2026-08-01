@@ -1,28 +1,25 @@
-package com.project.tests.uh;
+package com.project.tests;
 
 import org.testng.annotations.Test;
-import org.testng.Assert;
 import com.project.utils.ReportLogger;
 import com.project.tests.base.BaseTest;
 
 /**
- * ApplicationNoBlankOrServerErrorTest
- * Source: uh/uh_tc_002.md
- * Purpose: Ensure the application does not render a blank page or return server errors on load.
- * TODO:
- *  - Navigate to target URL and assert HTTP status is not 404/500
- *  - Verify main content is present (body not empty) and key selectors render
- *  - Add logging and screenshot capture on failure
+ * @deprecated Superseded by {@link HealthCheckTests} which implements
+ *             AC-1.1 (no blank/server error), AC-1.2 (directory content),
+ *             AC-1.3 (unresponsive server), and AC-2.1 (screenshot on failure).
+ *             This class is retained for backward compatibility but all tests
+ *             are disabled.
  */
+@Deprecated
 public class ApplicationNoBlankOrServerErrorTest extends BaseTest {
 
-    @Test
+    @Test(enabled = false, description = "Superseded by HealthCheckTests.verifyNoBlankScreenOrServerError")
     public void placeholder_noBlankOrServerError() {
-        // TODO: implement test based on uh/uh_tc_002.md
-        ReportLogger.log("TODO: implement ApplicationNoBlankOrServerErrorTest - see uh/uh_tc_002.md");
-        Assert.assertTrue(true);
+        ReportLogger.log("DEPRECATED: Use HealthCheckTests instead — see specs/002-web-availability");
     }
 }
+
 
 
 

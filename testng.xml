@@ -1,12 +1,49 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="MySeleniumSuite">
+<suite name="PeopleDirectorySuite" parallel="tests" thread-count="1">
     <listeners>
         <listener class-name="com.project.listeners.TestListener" />
+        <listener class-name="com.project.listeners.CategoryListener" />
     </listeners>
+    
+    <!-- Connectivity-aware test suite controller -->
+    <suite-files>
+        <!-- Run connectivity check before all tests -->
+    </suite-files>
+    
+    <!-- Suite-level parameters -->
+    <parameter name="offlineMode" value="auto"/> <!-- Options: auto, true, false -->
 
-    <test name="DefaultTests">
+    <!-- Connectivity-aware test suite controller -->
+    <test name="ConnectivityAwareSuite" enabled="true">
+        <parameter name="baseUrl" value="https://www.uci.cu/index.php/directorio/personas"/>
+        <parameter name="offlineMode" value="auto"/>
+        <classes>
+            <class name="com.project.tests.suite.ConnectivityAwareTestSuite"/>
+        </classes>
+    </test>
+
+    <test name="DirectoryLoadTests">
         <parameter name="baseUrl" value="https://www.uci.cu/index.php/directorio/personas"/>
         <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.project.tests.DirectoryTests"/>
+        </classes>
+    </test>
+
+    <test name="HealthCheckTests">
+        <parameter name="baseUrl" value="https://www.uci.cu/index.php/directorio/personas"/>
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.project.tests.HealthCheckTests"/>
+        </classes>
+    </test>
+
+    <test name="DirectoryPeopleNavigationTests">
+        <parameter name="baseUrl" value="https://www.uci.cu/index.php/directorio/personas"/>
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.project.tests.DirectoryPeopleNavigationTests"/>
+        </classes>
     </test>
 </suite>
 
