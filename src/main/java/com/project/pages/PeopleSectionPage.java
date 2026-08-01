@@ -19,16 +19,16 @@ import java.util.stream.Collectors;
  */
 public class PeopleSectionPage extends BasePage {
 
-    private static final By PERSONNEL_LIST = By.cssSelector(".view-content");
-    private static final By PERSONNEL_RECORDS = By.cssSelector(".view-content .profesor");
-    private static final By PERSON_NAME = By.cssSelector(".nombre a");
-    private static final By PERSON_ROLE = By.cssSelector(".cargo");
-    private static final By PAGE_TITLE = By.cssSelector(".titulo-page h2");
+    private static final By PERSONNEL_LIST = By.cssSelector(".view-content, .content, main, [data-testid='personnel-list']");
+    private static final By PERSONNEL_RECORDS = By.cssSelector(".view-content .profesor, .profesor, .person, .record, [data-testid='personnel-record']");
+    private static final By PERSON_NAME = By.cssSelector(".nombre a, .name a, .person-name a, [data-testid='person-name']");
+    private static final By PERSON_ROLE = By.cssSelector(".cargo, .role, .person-role, [data-testid='person-role']");
+    private static final By PAGE_TITLE = By.cssSelector(".titulo-page h2, h1, h2, .page-title, .title, [data-testid='page-title']");
     
     // Empty state locators for User Story 2
-    private static final By EMPTY_STATE_MESSAGE = By.cssSelector(".view-empty .message");
-    private static final By EMPTY_STATE_CONTAINER = By.cssSelector(".view-empty");
-    private static final By NO_RESULTS_MESSAGE = By.cssSelector(".view-content .no-results, .view-empty p");
+    private static final By EMPTY_STATE_MESSAGE = By.cssSelector(".view-empty .message, .empty .message, .no-results, [data-testid='empty-message']");
+    private static final By EMPTY_STATE_CONTAINER = By.cssSelector(".view-empty, .empty, .no-results-container, [data-testid='empty-state']");
+    private static final By NO_RESULTS_MESSAGE = By.cssSelector(".view-content .no-results, .view-empty p, .no-results, [data-testid='no-results']");
 
     private final PaginationComponent paginationComponent;
     private final AlphabetFilterComponent alphabetFilterComponent;

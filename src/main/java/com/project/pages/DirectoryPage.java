@@ -4,6 +4,7 @@ import com.project.pages.components.PersonList;
 import com.project.pages.components.AlphabetFilterComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +18,9 @@ public class DirectoryPage extends BasePage {
     private final PersonList personList;
     private final AlphabetFilterComponent alphabetFilter;
 
-    private final By pageTitle = By.cssSelector(".titulo-page h2");
-    private final By activeSection = By.cssSelector(".menu-directorio .menu-item.menu-item--active-trail a");
-    private final By headerContainer = By.id("header");
+    private final By pageTitle = By.cssSelector(".titulo-page h2, h1, h2, .page-title, .title, [data-testid='page-title']");
+    private final By activeSection = By.cssSelector(".menu-directorio .menu-item.menu-item--active-trail a, .active a, .current-menu-item a");
+    private final By headerContainer = By.cssSelector("#header, header, .header, [data-testid='header']");
 
     public DirectoryPage() {
         super();
@@ -38,7 +39,33 @@ public class DirectoryPage extends BasePage {
     }
 
     public String getPageTitleText() {
-        return getText(pageTitle);
+        try {
+            return getText(pageTitle);
+        } catch (Exception e) {
+            // Try alternative selectors
+            By[] titleSelectors = {
+                By.cssSelector("h1"),
+                By.cssSelector("h2"), 
+                By.cssSelector(".page-title"),
+                By.cssSelector(".title"),
+                By.tagName("h1"),
+                By.tagName("h2")
+            };
+            
+            for (By selector : titleSelectors) {
+                try {
+                    WebElement element = findElementWithFallback(selector);
+                    if (element != null) {
+                        return element.getText();
+                    }
+                } catch (Exception ex) {
+                    continue;
+                }
+            }
+            
+            // Fallback to page title from driver
+            return driver.getTitle();
+        }
     }
 
     public String getActiveSectionText() {

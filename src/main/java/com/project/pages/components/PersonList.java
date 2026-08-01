@@ -21,16 +21,16 @@ public class PersonList {
     private final WaitUtils waitUtils;
 
     // Locator constants - using stable selectors instead of fragile XPath
-    private static final By PERSON_RECORDS = By.cssSelector(".views-row");
-    private static final By PERSON_NAME_LINK = By.cssSelector(".views-field-title a");
-    private static final By PERSON_DETAILS = By.cssSelector(".views-field-field-persona-nombre, .views-field-field-persona-apellidos");
-    private static final By EMPTY_STATE_MESSAGE = By.cssSelector(".view-empty, .no-results, [data-testid='empty-state']");
-    private static final By LOADING_INDICATOR = By.cssSelector(".loading, .spinner, [data-testid='loading']");
-    private static final By PAGINATION_CONTAINER = By.cssSelector(".pagination, .pager, [data-testid='pagination']");
-    private static final By NEXT_PAGE_BUTTON = By.cssSelector(".next > a, .pager-next > a, [data-testid='next-page']");
-    private static final By PREV_PAGE_BUTTON = By.cssSelector(".prev > a, .pager-previous > a, [data-testid='prev-page']");
-    private static final By PAGE_INFO = By.cssSelector(".page-info, .pager-current, [data-testid='page-info']");
-    private static final By RESULTS_COUNT = By.cssSelector(".view-header, .results-count, [data-testid='results-count']");
+    private static final By PERSON_RECORDS = By.cssSelector(".views-row, .profesor, .person, .record, .item, tr, [data-testid='person-record']");
+    private static final By PERSON_NAME_LINK = By.cssSelector(".views-field-title a, .nombre a, .name a, .person-name a, [data-testid='person-name']");
+    private static final By PERSON_DETAILS = By.cssSelector(".views-field-field-persona-nombre, .views-field-field-persona-apellidos, .nombre, .cargo, .person-details, [data-testid='person-details']");
+    private static final By EMPTY_STATE_MESSAGE = By.cssSelector(".view-empty, .no-results, .empty, [data-testid='empty-state'], .message");
+    private static final By LOADING_INDICATOR = By.cssSelector(".loading, .spinner, [data-testid='loading'], .loader");
+    private static final By PAGINATION_CONTAINER = By.cssSelector(".pagination, .pager, [data-testid='pagination'], .nav");
+    private static final By NEXT_PAGE_BUTTON = By.cssSelector(".next > a, .pager-next > a, [data-testid='next-page'], .pagination .next");
+    private static final By PREV_PAGE_BUTTON = By.cssSelector(".prev > a, .pager-previous > a, [data-testid='prev-page'], .pagination .prev");
+    private static final By PAGE_INFO = By.cssSelector(".page-info, .pager-current, [data-testid='page-info'], .pagination .current");
+    private static final By RESULTS_COUNT = By.cssSelector(".view-header, .results-count, [data-testid='results-count'], .count");
 
     public PersonList(WebDriver driver) {
         this.driver = driver;

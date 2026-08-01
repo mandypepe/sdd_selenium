@@ -66,6 +66,42 @@ public abstract class BasePage {
             return false;
         }
     }
+    
+    /**
+     * More flexible element checking that tries multiple selectors
+     */
+    protected boolean isElementDisplayedWithFallback(By... locators) {
+        for (By locator : locators) {
+            try {
+                WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+                if (element != null && element.isDisplayed()) {
+                    return true;
+                }
+            } catch (Exception e) {
+                // Continue to next selector
+                continue;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * More flexible element finding that tries multiple selectors
+     */
+    protected WebElement findElementWithFallback(By... locators) {
+        for (By locator : locators) {
+            try {
+                WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+                if (element != null && element.isDisplayed()) {
+                    return element;
+                }
+            } catch (Exception e) {
+                // Continue to next selector
+                continue;
+            }
+        }
+        throw new RuntimeException("Failed to find element with any of the provided selectors");
+    }
 
     public String getCurrentUrl() {
         return driver.getCurrentUrl();

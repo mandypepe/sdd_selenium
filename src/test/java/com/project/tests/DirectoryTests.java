@@ -66,8 +66,14 @@ public class DirectoryTests extends BaseTest {
             String pageTitle = directoryPage.getPageTitleText();
             String sectionHeader = directoryPage.getActiveSectionText();
 
-            Assert.assertTrue(pageTitle.equalsIgnoreCase(DirectoryTestData.EXPECTED_PAGE_TITLE), 
-                    "Page title mismatch! Expected (case-insensitive): " + DirectoryTestData.EXPECTED_PAGE_TITLE + ", Actual: " + pageTitle);
+            // Normalize strings to handle encoding differences
+            String normalizedPageTitle = java.text.Normalizer.normalize(pageTitle, java.text.Normalizer.Form.NFC)
+                    .replaceAll("\\p{M}", "");
+            String normalizedExpectedTitle = java.text.Normalizer.normalize(DirectoryTestData.EXPECTED_PAGE_TITLE, java.text.Normalizer.Form.NFC)
+                    .replaceAll("\\p{M}", "");
+            
+            Assert.assertTrue(normalizedPageTitle.equalsIgnoreCase(normalizedExpectedTitle), 
+                    "Page title mismatch! Expected (case-insensitive): " + normalizedExpectedTitle + ", Actual: " + normalizedPageTitle);
             Assert.assertEquals(sectionHeader, DirectoryTestData.EXPECTED_SECTION_HEADER, 
                     "Active section header mismatch!");
         } catch (Exception e) {

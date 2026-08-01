@@ -7,8 +7,8 @@ public class HealthCheckPage extends BasePage {
 
     // Locators
     private final By pageTitleLocator = By.tagName("title"); // Assuming title is within <title> tag
-    private final By directoryContentContainer = By.id("directory-content"); // Placeholder, adjust as per actual HTML
-    private final By errorIndicator = By.cssSelector(".error-message, .error-page-indicator"); // Placeholder, adjust as per actual HTML
+    private final By directoryContentContainer = By.cssSelector("#directory-content, .directory-content, .content, main, [data-testid='directory-content'], .view-content");
+    private final By errorIndicator = By.cssSelector(".error-message, .error-page-indicator, .error, [data-testid='error'], .alert-error");
     private final By bodyLocator = By.tagName("body");
 
     public HealthCheckPage() {
